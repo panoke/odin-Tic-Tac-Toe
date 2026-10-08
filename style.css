@@ -1,0 +1,47 @@
+:route {
+
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+header {
+    justify-self: center;
+    margin: 2vh 5vh;
+}
+
+main {
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+
+}
+
+#board {
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    row-gap: 0px;
+    column-gap: 0px;
+    width: 50vh;
+    height: 50vh;
+}
+
+#restartButton {
+    margin: 10px auto;
+    padding: 5px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.tiles {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
