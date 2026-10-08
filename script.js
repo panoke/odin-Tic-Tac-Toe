@@ -1,6 +1,6 @@
 function newGame (player1, player2, size) {
 
-    const size = size === undefined ? 3 : size;
+    size = size === undefined ? 3 : size;
 
     const players = {
         "player1": {
@@ -13,8 +13,10 @@ function newGame (player1, player2, size) {
         }
     }
 
+    // player1/X always goes first
     let nextPlayer = "X"
 
+    // create 2d array to track player moves
     const gameBoard = (() => {
         const boardArray = [];
 
@@ -28,6 +30,7 @@ function newGame (player1, player2, size) {
         return boardArray
     })()
 
+    // internal function to convert player token to player name
     let returnPlayerName = (token) => {
         for (const player in players) {
             if(players[player].token === token)
@@ -37,6 +40,7 @@ function newGame (player1, player2, size) {
         }
     }
 
+    // check if game has been won and return name of winner
     const checkWinner = () => {
         // check vertically
         for (let x = 0; x < size; x++) {
@@ -81,10 +85,10 @@ function newGame (player1, player2, size) {
         }
 
         // check diagonally 
-        const Start00 = gameBoard[0][0]
-        if (startPlayer !== null) {
+        const start00 = gameBoard[0][0]
+        if (start00 !== null) {
             for (let z = 1; z < size; z++) {
-                if (gameBoard[z][z] === Start00)
+                if (gameBoard[z][z] === start00)
                 {
                     if (z === size - 1) {
                         return returnPlayerName(gameBoard[z][z]);
@@ -96,10 +100,10 @@ function newGame (player1, player2, size) {
             }
         }
 
-        const StartZ0 = gameBoard[size-1][0]
-        if (startPlayer !== null) {
+        const startZ0 = gameBoard[size-1][0]
+        if (startZ0 !== null) {
             for (let z = 1; z < size; z++) {
-                if (StartZ0 === gameBoard[size - 1 - z][z]) {
+                if (startZ0 === gameBoard[size - 1 - z][z]) {
                     if (z == size - 1) {
                         return returnPlayerName(gameBoard[size - 1 - z][z]);
                     }
@@ -107,8 +111,6 @@ function newGame (player1, player2, size) {
                 else {
                     break;
                 }
-
-                
             }
         }
     }
@@ -116,6 +118,7 @@ function newGame (player1, player2, size) {
     const takeTurn = (x, y) => {
         if (gameBoard[x][y] === null) {
             gameBoard[x][y] = nextPlayer;
+            // rotate next player
             nextPlayer = nextPlayer === players.player1.token ? players.player2.token : players.player1.token;
         }
         else {
@@ -123,15 +126,17 @@ function newGame (player1, player2, size) {
         }
     }
 
+    // draw game board to console for troubleshooting
     const consoleDrawBoard = () => {
         const boardRotated = gameBoard[0].map((_, x) => gameBoard.map(row => row[x]));
         console.table(boardRotated);
     }
 
-    const checkDraw = () => {
+    // look for any empty cells
+    const checkFull = () => {
         for (let x = 0; x < size; x++) {
             for (let y = 0; y < size; y++) {
-                if (gameBoard[x][y] !== null) {
+                if (gameBoard[x][y] === null) {
                     return false;
                 }
             }
@@ -139,5 +144,8 @@ function newGame (player1, player2, size) {
         return true;
     }
 
-    return(players, gameBoard, takeTurn, checkWinner, checkDraw, consoleDrawBoard);
+    return { players, gameBoard, takeTurn, checkWinner, checkFull, consoleDrawBoard };
 }
+
+
+
