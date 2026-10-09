@@ -16,9 +16,9 @@
         <dialog id="newGameDialog" closedby="none">
             <form action="dialog" id="newGameForm">
                 <label for="player1name">Player X:</label>
-                <input type="text" name="player1name" id="player1name" placeholder="Enter name for Player X..." required>
+                <input type="text" name="player1name" id="player1name" placeholder="Enter name for Player X..." required maxlength="20" title="Maximum length: 20 characters">
                 <label for="player2name">Player O:</label>
-                <input type="text" name="player2name" id="player2name" placeholder="Enter Name for Player O..." required>
+                <input type="text" name="player2name" id="player2name" placeholder="Enter Name for Player O..." required maxlength="20" title="Maximum length: 20 characters">
                 <button id="dialogButton" type="submit">Start</button>
             </form>
         </dialog>

@@ -6,6 +6,7 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
+    caret-color: transparent;
 }
 
 header {
@@ -79,9 +80,9 @@ main {
 }
 
 #newGameDialog {
-    margin: 30vh auto auto auto;
+    margin: 20vh auto auto auto;
     padding: 10px;
-    background-color: lightgray;
+    background-color: whitesmoke;
     #newGameForm {
     padding: 0.2em;
     display: flex;
@@ -89,6 +90,7 @@ main {
     gap: 0.2em;
     input {
         padding: 0.5em;
+        caret-color: black;
     }
     }
     border-radius: 10px;
