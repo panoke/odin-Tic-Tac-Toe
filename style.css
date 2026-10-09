@@ -22,6 +22,12 @@ main {
 
 }
 
+#boardContainer {
+    position: relative;
+    width: 50vh;
+    height: 50vh;
+}
+
 #board {
     justify-self: center;
     display: grid;
@@ -29,20 +35,36 @@ main {
     grid-template-rows: repeat(3, minmax(0, 1fr));
     row-gap: 0px;
     column-gap: 0px;
-    width: 50vh;
-    height: 50vh;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
 }
 
-#restartButton {
+#feedback {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    align-content: center;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 2vw;
+    color: red;
+    text-wrap: pretty;
+    overflow: hidden;
+}
+
+#restartButton, #dialogButton {
     margin: 10px auto;
     padding: 5px 15px;
     border-radius: 10px;
     cursor: pointer;
 }
-
-/* .tiles[data-mark=""] {
-    cursor: pointer;
-} */
 
 .tiles {
     width: 100%;
@@ -53,4 +75,25 @@ main {
 
 .tiles:disabled {
     cursor: not-allowed;
+    border: 2px outset ButtonBorder;
+}
+
+#newGameDialog {
+    margin: 30vh auto auto auto;
+    padding: 10px;
+    background-color: lightgray;
+    #newGameForm {
+    padding: 0.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    input {
+        padding: 0.5em;
+    }
+    }
+    border-radius: 10px;
+}
+
+#newGameDialog::backdrop {
+    background-color: rgb(255 255 255 / 75%);
 }

@@ -1,3 +1,62 @@
+const boardTiles = document.querySelectorAll(".tiles");
+const board = document.querySelector("#board");
+const feedback = document.querySelector("#feedback");
+const newGameDialog = document.querySelector('#newGameDialog');
+const dialogButton = document.querySelector('#dialogButton');
+const newGameForm = document.querySelector('#newGameForm');
+
+let game;
+
+// show new game dialog on page load 
+newGameDialog.showModal();
+
+boardTiles.forEach((tile) => {
+    tile.addEventListener("click", (event) => {clickTile(event.currentTarget)})
+})
+
+newGameForm.addEventListener("submit", (event) => {
+console.log("submit")
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const newGameData = Object.fromEntries(formData);
+  resetGame ()
+
+  game = newGame(newGameData.player1name, newGameData.player2name)
+  newGameDialog.close();
+  newGameForm.reset()
+  
+});
+
+
+function clickTile (tile) {
+    tile.textContent = game.next();
+    tile.disabled = true;
+    game.takeTurn(tile.dataset.x, tile.dataset.y);
+
+    let winner = game.checkWinner();
+    if (winner) {
+        feedback.style.zIndex = "10";
+        feedback.style.color = "green";
+        feedback.textContent = `${winner} has Won!`
+    }
+    else if (game.checkFull()) {
+        feedback.style.zIndex = "10"
+        feedback.style.color = "red";
+        feedback.textContent = `Draw!!!`
+    }
+}
+
+function resetGame () {
+    boardTiles.forEach((tile) => {
+        tile.textContent = "";
+        tile.disabled = false;
+    })
+
+    feedback.textContent = ""
+    feedback.style.zIndex = '-1'
+}
+
+
 function newGame (player1, player2, size) {
 
     size = size === undefined ? 3 : size;
@@ -30,8 +89,10 @@ function newGame (player1, player2, size) {
         return boardArray
     })()
 
+    const next = () => nextPlayer;
+
     // internal function to convert player token to player name
-    let returnPlayerName = (token) => {
+    const returnPlayerName = (token) => {
         for (const player in players) {
             if(players[player].token === token)
             {
@@ -45,6 +106,7 @@ function newGame (player1, player2, size) {
         // check vertically
         for (let x = 0; x < size; x++) {
             const startPlayer = gameBoard[x][0]
+
             if (startPlayer === null) {
                 continue;
             }
@@ -59,7 +121,6 @@ function newGame (player1, player2, size) {
                 else {
                     break;  
                 }
-
             }
         }
 
@@ -144,7 +205,7 @@ function newGame (player1, player2, size) {
         return true;
     }
 
-    return { players, gameBoard, takeTurn, checkWinner, checkFull, consoleDrawBoard };
+    return { players, gameBoard, next, takeTurn, checkWinner, checkFull, consoleDrawBoard };
 }
 
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:;base64,=">
     <title>TOP - Tic Tac Toe</title>
 </head>
 <body>
@@ -12,19 +13,30 @@
         <h1>Tic Tac Toe</h1>
     </header>
     <main>
-        <div id="board">
-            <button class="tiles" data-x="0" data-y="0" data-mark=""></button>
-            <button class="tiles" data-x="1" data-y="0" data-mark="X" disabled>X</button>
-            <button class="tiles" data-x="2" data-y="0" data-mark=""></button>
-            <button class="tiles" data-x="0" data-y="1" data-mark=""></button>
-            <button class="tiles" data-x="1" data-y="1" data-mark=""></button>
-            <button class="tiles" data-x="2" data-y="1" data-mark=""></button>
-            <button class="tiles" data-x="0" data-y="2" data-mark=""></button>
-            <button class="tiles" data-x="1" data-y="2" data-mark=""></button>
-            <button class="tiles" data-x="2" data-y="2" data-mark=""></button>
+        <dialog id="newGameDialog" closedby="none">
+            <form action="dialog" id="newGameForm">
+                <label for="player1name">Player X:</label>
+                <input type="text" name="player1name" id="player1name" placeholder="Enter name for Player X..." required>
+                <label for="player2name">Player O:</label>
+                <input type="text" name="player2name" id="player2name" placeholder="Enter Name for Player O..." required>
+                <button id="dialogButton" type="submit">Start</button>
+            </form>
+        </dialog>
+        <div id="boardContainer">
+            <div id="board">
+                <button class="tiles" data-x="0" data-y="0"></button>
+                <button class="tiles" data-x="1" data-y="0"></button>
+                <button class="tiles" data-x="2" data-y="0"></button>
+                <button class="tiles" data-x="0" data-y="1"></button>
+                <button class="tiles" data-x="1" data-y="1"></button>
+                <button class="tiles" data-x="2" data-y="1"></button>
+                <button class="tiles" data-x="0" data-y="2"></button>
+                <button class="tiles" data-x="1" data-y="2"></button>
+                <button class="tiles" data-x="2" data-y="2"></button>
+            </div>
+            <div id="feedback"></div>
         </div>
-
-        <button id="restartButton">Restart</button>
+        <button id="restartButton" command="show-modal" commandfor="newGameDialog" >Restart</button>
     </main>
     <footer>
 
